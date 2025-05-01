@@ -35,7 +35,7 @@ export const Footer = () => {
 							: ''}
 					</div>
 					<div>
-						{temp > 0 ? <span>+{temp}</span> : temp} {temp ? 'градусов.' : ''}{' '}
+						{temp > 0 ? <span>+{temp}</span> : temp} {temp ? '.' : ''}{' '}
 						{weather.charAt(0).toUpperCase() + weather.slice(1)}
 					</div>
 				</div>

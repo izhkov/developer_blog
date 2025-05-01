@@ -1,4 +1,4 @@
-import { getUser } from './getUser'
+import { getUser } from './get-user'
 import { addUser } from './add-user'
 import { createSession } from './create-session'
 

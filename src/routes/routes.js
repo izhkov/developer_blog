@@ -1,9 +1,10 @@
+import { Authorization } from '../pages/authorization/authorization'
 import { Routes, Route } from 'react-router-dom'
 
 export const AppRoutes = () => {
 	const navigationRoutes = [
 		{ path: '/', element: <div>Главная</div> },
-		{ path: '/login', element: <div>Авторизация</div> },
+		{ path: '/login', element: <Authorization /> },
 		{ path: '/register', element: <div>Регистрация</div> },
 		{ path: '/users', element: <div>Пользователи</div> },
 		{ path: '/post', element: <div>Новая статья</div> },
