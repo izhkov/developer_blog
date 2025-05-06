@@ -4,6 +4,7 @@ import styles from './Footer.module.css'
 export const Footer = () => {
 	const [city, setCity] = useState('')
 	const [temp, setTemp] = useState('')
+	const [wind, setWind] = useState('')
 	const [weather, setWeather] = useState('')
 
 	useEffect(() => {
@@ -11,9 +12,10 @@ export const Footer = () => {
 			'https://api.openweathermap.org/data/2.5/weather?q=Ekaterinburg&lang=ru&units=metric&appid=ea043a9c5425d18336b24a88169f0bd6',
 		)
 			.then((response) => response.json())
-			.then(({ name, main, weather }) => {
+			.then(({ name, main, weather, wind }) => {
 				setCity(name)
 				setTemp(Math.round(main.temp))
+				setWind(wind.speed)
 				setWeather(weather[0].description)
 			})
 	}, [])
@@ -38,6 +40,7 @@ export const Footer = () => {
 						{temp > 0 ? <span>+{temp}</span> : temp} {temp ? '.' : ''}{' '}
 						{weather.charAt(0).toUpperCase() + weather.slice(1)}
 					</div>
+					<div>{wind ? <span>Ветер {wind} м/с</span> : ''}</div>
 				</div>
 			</footer>
 		</>
