@@ -1,0 +1,79 @@
+.authContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.authContainer h2 {
+	font-family: Inter, 'Helvetica Neue', Helvetica, sans-serif;
+	margin-bottom: 42px;
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.authContainer label {
+	text-align: center;
+	font-family: Inter, 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+.authContainer form {
+	display: flex;
+	flex-direction: column;
+}
+
+.authContainer form input {
+	width: 400px;
+	height: 50px;
+	border-radius: 5px;
+	border: 2px solid #999999;
+	outline: none;
+	margin: 5px 0 15px 0;
+	font-size: 18px;
+	padding: 0 10px;
+}
+
+.authContainer form button {
+	display: block;
+	width: 250px;
+	height: 50px;
+	margin: 20px auto 0 auto;
+	border: 2px solid #999999;
+	border-radius: 10px;
+	background-color: #93e690;
+	font-size: 16px;
+	font-family: Inter, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.authContainer form button:hover {
+	background-color: #82cd7f;
+	cursor: pointer;
+}
+
+.registerBlock {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.registerBlock a {
+	text-decoration: none;
+	font-size: 16px;
+	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+	color: #000;
+}
+
+.registerBlock a:hover {
+	text-decoration: underline;
+}
+
+.errorMessage {
+	display: flex;
+	justify-content: center;
+	height: 50px;
+	align-items: center;
+	margin-top: 20px;
+	border: 2px solid #999999;
+	border-radius: 5px;
+	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+	background-color: #e7acac;
+}

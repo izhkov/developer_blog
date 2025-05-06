@@ -4,14 +4,14 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { server } from '../../bff/server'
-import { Link, Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useResetForm } from '../../hooks'
 import { setUser } from '../../actions'
 import { selectUserRole } from '../../selectors'
 import { ROLE } from '../../constants'
-import styles from './authorization.module.css'
+import styles from './registration.module.css'
 
-const authFormSchema = yup.object().shape({
+const regFormSchema = yup.object().shape({
 	login: yup
 		.string()
 		.required('Заполните логин')
@@ -27,9 +27,13 @@ const authFormSchema = yup.object().shape({
 		)
 		.min(6, 'Неверно заполнен пароль. Минимум 6 символов')
 		.max(20, 'Неверно заполнен пароль. Максимум 20 символов'),
+	passcheck: yup
+		.string()
+		.required('Заполните повтор пароля')
+		.oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
 })
 
-export const Authorization = () => {
+export const Registration = () => {
 	const {
 		register,
 		reset,
@@ -39,8 +43,9 @@ export const Authorization = () => {
 		defaultValues: {
 			login: '',
 			password: '',
+			passcheck: '',
 		},
-		resolver: yupResolver(authFormSchema),
+		resolver: yupResolver(regFormSchema),
 	})
 
 	const [serverError, setServerError] = useState(null)
@@ -52,7 +57,7 @@ export const Authorization = () => {
 	useResetForm(reset)
 
 	const onSubmit = ({ login, password }) => {
-		server.authorize(login, password).then(({ error, res }) => {
+		server.register(login, password).then(({ error, res }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`)
 				return
@@ -62,7 +67,8 @@ export const Authorization = () => {
 		})
 	}
 
-	const formError = errors?.login?.message || errors?.password?.message
+	const formError =
+		errors?.login?.message || errors?.password?.message || errors?.passcheck?.message
 	const errorMessage = formError || serverError
 
 	if (roleId !== ROLE.GUEST) {
@@ -71,7 +77,7 @@ export const Authorization = () => {
 
 	return (
 		<div className={styles.authContainer}>
-			<h2>Авторизация</h2>
+			<h2>Регистрация</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<label htmlFor="login">Логин:</label>
 				<input
@@ -87,17 +93,19 @@ export const Authorization = () => {
 						onChange: () => setServerError(null),
 					})}
 				/>
+				<label htmlFor="password">Повтор пароля:</label>
+				<input
+					type="password"
+					{...register('passcheck', {
+						onChange: () => setServerError(null),
+					})}
+				/>
 				<button type="submit" disabled={!!formError}>
-					Авторизоваться
+					Зарегистрироваться
 				</button>
 				{errorMessage && (
 					<div className={styles.errorMessage}>{errorMessage}</div>
 				)}
-				<div className={styles.registerBlock}>
-					<Link to="/register" className={styles.loginButton}>
-						Зарегистрироваться
-					</Link>
-				</div>
 			</form>
 		</div>
 	)
